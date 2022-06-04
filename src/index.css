@@ -1,0 +1,22 @@
+.heading{
+    text-align: center;
+}
+
+.text{
+    text-align: center;
+}
+.notes{
+    text-align: center;
+}
+
+.line{
+    width: 40vh;
+}
+
+.cut{
+    text-decoration: line-through;
+}
+.note{
+    border: 10px;
+    border-color: black;
+}
