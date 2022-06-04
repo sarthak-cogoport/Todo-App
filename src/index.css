@@ -2,11 +2,21 @@
     text-align: center;
 }
 
+
 .text{
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 35%;
+    margin-right: 35%;
 }
 .notes{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
     text-align: center;
+    border-color: yellow;
 }
 
 .line{
@@ -17,6 +27,8 @@
     text-decoration: line-through;
 }
 .note{
-    border: 10px;
-    border-color: black;
+    width: 40vh;
+    display: flex;
+    justify-content: space-between;
+    border: solid;
 }

@@ -39,6 +39,7 @@ function TodoApp() {
   };
 
   const addTask = () => {
+    if (text == "") return;
     setTasks([...tasks, { id: nanoid(), name: text, checked: false }]);
     setText("");
   };
@@ -68,53 +69,115 @@ function TodoApp() {
     <>
       <h1 className="heading">Todo App</h1>
       <div className="text">
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => taskValueChange(e.target.value)}
-          placeholder="Type Here..."
-        />
-        <button onClick={() => addTask()}>+</button>{" "}
-        <button onClick={() => setFilter("all")}>All</button>{" "}
-        <button onClick={() => setFilter("done")}>Show Done</button>{" "}
-        <button onClick={() => setFilter("not done")}>
-          Not completed
-        </button>
+        <div class="input-group mb-3">
+          <textarea
+            type="text"
+            class="form-control"
+            placeholder="Add your notes"
+            value={text}
+            onChange={(e) => taskValueChange(e.target.value)}
+            aria-describedby="button-addon2"
+          />
+          <button
+            class="btn btn-outline-warning"
+            type="button"
+            id="button-addon2"
+            onClick={() => addTask()}
+          >
+            +
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="button"
+            onClick={() => setFilter("all")}
+          >
+            All
+          </button>{" "}
+          <button
+            type="button"
+            class="btn btn-success"
+            data-bs-toggle="button"
+            onClick={() => setFilter("done")}
+          >
+            <span>&#10004;</span>
+          </button>{" "}
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-toggle="button"
+            onClick={() => setFilter("not done")}
+          >
+            Remaining
+          </button>
+        </div>
       </div>
       <div className="notes">
         {tasks.map((note) => {
           if (filter === "all") {
             return (
-              <div className="note" key={note.id}>
-                <input
-                  type="checkbox"
-                  checked={note.checked}
-                  onClick={() => addCheck(note.id)}
-                />
-                {note.checked ? (
-                  <span className="cut">{note.name} </span>
-                ) : (
-                  <span> {note.name}</span>
-                )}
-                <button onClick={() => deleteTask(note.id)}>-</button>
+              <div class="card" style={{ width: "18rem" }}>
+                <div class="card-body">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    checked={note.checked}
+                    onClick={() => addCheck(note.id)}
+                  />
+                  {note.checked ? (
+                    <p class="card-text" className="cut">
+                      {note.name}
+                    </p>
+                  ) : (
+                    <p class="card-text">{note.name}</p>
+                  )}
+
+                  <a
+                    href="#"
+                    onClick={() => deleteTask(note.id)}
+                    class="card-link"
+                  >
+                    Delete
+                  </a>
+                </div>
               </div>
             );
           }
           if (filter === "done" && note.checked) {
             return (
-              <div className="note" key={note.id}>
-                <input type="checkbox" checked />
+              <div class="card" style={{ width: "18rem" }}>
+                <div class="card-body">
+                  <input class="form-check-input" type="checkbox" checked />
+                  <p class="card-text" className="cut">
+                    {note.name}
+                  </p>
 
-                <span className="cut">{note.name} </span>
-
-                <button onClick={() => deleteTask(note.id)}>-</button>
+                  <a
+                    href="#"
+                    onClick={() => deleteTask(note.id)}
+                    class="card-link"
+                  >
+                    Delete
+                  </a>
+                </div>
               </div>
             );
           }
           if (filter === "not done" && !note.checked) {
             return (
-              <div className="note" key={note.id}>
-                <span>{note.name} </span>
+              <div class="card" style={{ width: "18rem" }}>
+                <div class="card-body">
+                  <p class="card-text">{note.name}</p>
+                  <a
+                    href="#"
+                    onClick={() => deleteTask(note.id)}
+                    class="card-link"
+                  >
+                    Delete
+                  </a>
+                </div>
               </div>
             );
           }
